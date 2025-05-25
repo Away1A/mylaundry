@@ -72,10 +72,10 @@ const router = express.Router();
  *             properties:
  *               email:
  *                 type: string
- *                 example: johndoe@example.com
+ *                 example: admin@gmail.com
  *               password:
  *                 type: string
- *                 example: strongpassword123
+ *                 example: admin123
  *     responses:
  *       200:
  *         description: Successful login returns JWT token

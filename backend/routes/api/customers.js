@@ -1,3 +1,4 @@
+// routes/customers.js
 import express from 'express';
 import {
   getAllCustomers,
@@ -6,7 +7,6 @@ import {
   updateCustomer,
   deleteCustomer
 } from '../../controllers/customersController.js';
-import { authenticateToken } from '../../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
@@ -14,12 +14,12 @@ const router = express.Router();
  * @swagger
  * tags:
  *   name: Customers
- *   description: Endpoints for managing customers (Requires Authentication)
+ *   description: Customer management
  */
 
 /**
  * @swagger
- * /api/customers:
+ * /customers:
  *   get:
  *     summary: Get all customers
  *     tags: [Customers]
@@ -27,23 +27,46 @@ const router = express.Router();
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: A list of customers
+ *         description: List of customers
  */
 
 /**
  * @swagger
- * /api/customers:
+ * /customers/{id}:
+ *   get:
+ *     summary: Get customer by ID
+ *     tags: [Customers]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Customer detail
+ *       404:
+ *         description: Customer not found
+ */
+
+/**
+ * @swagger
+ * /customers:
  *   post:
  *     summary: Create a new customer
  *     tags: [Customers]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
- *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - name
+ *               - phone
  *             properties:
  *               name:
  *                 type: string
@@ -53,46 +76,24 @@ const router = express.Router();
  *                 type: string
  *     responses:
  *       201:
- *         description: The created customer
+ *         description: Customer created
  */
 
 /**
  * @swagger
- * /api/customers/{id}:
- *   get:
- *     summary: Get a customer by ID
- *     tags: [Customers]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Customer found
- *       404:
- *         description: Customer not found
- */
-
-/**
- * @swagger
- * /api/customers/{id}:
+ * /customers/{id}:
  *   put:
  *     summary: Update a customer
  *     tags: [Customers]
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - name: id
- *         in: path
+ *       - in: path
+ *         name: id
  *         required: true
  *         schema:
  *           type: integer
  *     requestBody:
- *       required: true
  *       content:
  *         application/json:
  *           schema:
@@ -107,28 +108,30 @@ const router = express.Router();
  *     responses:
  *       200:
  *         description: Customer updated
+ *       404:
+ *         description: Customer not found
  */
 
 /**
  * @swagger
- * /api/customers/{id}:
+ * /customers/{id}:
  *   delete:
  *     summary: Delete a customer
  *     tags: [Customers]
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - name: id
- *         in: path
+ *       - in: path
+ *         name: id
  *         required: true
  *         schema:
  *           type: integer
  *     responses:
  *       200:
  *         description: Customer deleted
+ *       404:
+ *         description: Customer not found
  */
-
-router.use(authenticateToken); // Apply auth to all
 
 router.get('/', getAllCustomers);
 router.get('/:id', getCustomerById);

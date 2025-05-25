@@ -1,90 +1,52 @@
-import models from '../models/index.js';
-import { JWT_SECRET } from '../config.js';
-import bcrypt from 'bcrypt';
-const { User } = models;
+import * as userService from '../services/usersService.js';
 
-// GET all users
 export const getAllUsers = async (req, res) => {
   try {
-    const users = await User.findAll({
-      order: [['id', 'DESC']],
-      attributes: { exclude: ['password'] }, // jangan kirim password
-    });
-    res.json(users);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    const users = await userService.getAllUsers();
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to get users', error: error.message });
   }
 };
 
-// GET user by ID
 export const getUserById = async (req, res) => {
   try {
-    const user = await User.findByPk(req.params.id, {
-      attributes: { exclude: ['password'] },
-    });
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-    res.json(user);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
-
-// POST create new user
-export const createUser = async (req, res) => {
-  const { name, email, password, role } = req.body;
-  try {
-    // hash password dulu
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = await User.create({
-      name,
-      email,
-      password: hashedPassword,
-      role,
-    });
-    // jangan kirim password
-    const { password: pwd, ...userData } = newUser.toJSON();
-    res.status(201).json(userData);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
-
-// PUT update user
-export const updateUser = async (req, res) => {
-  const { name, email, password, role } = req.body;
-  try {
-    const user = await User.findByPk(req.params.id);
+    const user = await userService.getUserById(req.params.id);
     if (!user) return res.status(404).json({ message: 'User not found' });
-
-    if (password) {
-      // hash password jika diupdate
-      user.password = await bcrypt.hash(password, 10);
-    }
-
-    user.name = name || user.name;
-    user.email = email || user.email;
-    user.role = role || user.role;
-
-    await user.save();
-
-    const { password: pwd, ...userData } = user.toJSON();
-    res.json(userData);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to get user', error: error.message });
   }
 };
 
-// DELETE user
+export const updateUser = async (req, res) => {
+  try {
+    const updatedUser = await userService.updateUser(req.params.id, req.body);
+    if (!updatedUser) return res.status(404).json({ message: 'User not found or update failed' });
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to update user', error: error.message });
+  }
+};
+
 export const deleteUser = async (req, res) => {
   try {
-    const deleted = await User.destroy({ where: { id: req.params.id } });
-    if (!deleted) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-    res.json({ message: 'User deleted' });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    const deleted = await userService.deleteUser(req.params.id);
+    if (!deleted) return res.status(404).json({ message: 'User not found' });
+    res.status(200).json({ message: 'User deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to delete user', error: error.message });
   }
 };
+
+export const getMyProfile = async (req, res) => {
+  try {
+    const user = await userService.getMyProfile(req.user.id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to get profile', error: error.message });
+  }
+};
+
+

@@ -1,6 +1,7 @@
 import express from 'express';
 import customersRoutes from './customers.js';
 import usersRoutes from './users.js';
+import ordersRoutes from './orders.js';
 import authRoutes from './auth.js';
 import { authenticateToken } from '../../middlewares/authMiddleware.js';
 
@@ -14,5 +15,7 @@ router.use(authenticateToken);
 
 router.use('/customers', customersRoutes);
 router.use('/users', usersRoutes);
+router.use('/orders', ordersRoutes);
+
 
 export default router;

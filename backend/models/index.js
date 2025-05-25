@@ -9,11 +9,14 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
 
 import User from './user.js';
 import Customer from './costumer.js';
+import Order from './order.js';
 
 // Init models harus dipanggil dengan sequelize instance
 const models = {
   User: User.init(sequelize),
   Customer: Customer.init(sequelize),
+  Order: Order.init(sequelize),
+
 };
 
 // Jika ada asosiasi antar model, panggil associate

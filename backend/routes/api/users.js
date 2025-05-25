@@ -2,9 +2,9 @@ import express from 'express';
 import {
   getAllUsers,
   getUserById,
-  createUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  getMyProfile, 
 } from '../../controllers/usersController.js';
 
 const router = express.Router();
@@ -48,38 +48,6 @@ const router = express.Router();
  *         description: User detail
  *       404:
  *         description: User not found
- */
-
-/**
- * @swagger
- * /users:
- *   post:
- *     summary: Create a new user
- *     tags: [Users]
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - username
- *               - email
- *               - password
- *               - role
- *             properties:
- *               username:
- *                 type: string
- *               email:
- *                 type: string
- *               role:
- *                 type: string
- *                 example: admin
- *     responses:
- *       201:
- *         description: Created user
  */
 
 /**
@@ -138,10 +106,26 @@ const router = express.Router();
  *         description: User not found
  */
 
+/**
+ * @swagger
+ * /users/me:
+ *   get:
+ *     summary: Get logged-in user's profile
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: User profile
+ *       404:
+ *         description: User not found
+ */
+
+router.get('/me', getMyProfile);
 router.get('/', getAllUsers);
 router.get('/:id', getUserById);
-router.post('/', createUser);
 router.put('/:id', updateUser);
 router.delete('/:id', deleteUser);
+
 
 export default router;

@@ -1,0 +1,94 @@
+/* Global Reset & Font */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
+
+:root {
+  --primary-color: #3b82f6;
+  --primary-dark: #2563eb;
+  --bg-color: #f9fafb;
+  --text-color: #1f2937;
+  --muted-text: #6b7280;
+  --card-bg: #ffffff;
+  --card-radius: 12px;
+  --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: "Inter", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Main wrapper */
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Logo with animation and hover effect */
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  will-change: transform, filter;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 12px var(--primary-color));
+  transform: scale(1.05);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 12px #61dafb);
+}
+
+/* Logo spin animation */
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+/* Elegant card */
+.card {
+  background-color: var(--card-bg);
+  padding: 2.5rem;
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  margin: 1rem auto;
+  max-width: 600px;
+  text-align: left;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+/* Documentation text */
+.read-the-docs {
+  color: var(--muted-text);
+  font-size: 0.9rem;
+  margin-top: 1.5rem;
+  transition: color 0.3s;
+}
+.read-the-docs:hover {
+  color: var(--primary-color);
+}

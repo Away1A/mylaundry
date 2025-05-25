@@ -1,0 +1,33 @@
+/* Reset & base styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Global font and background */
+html,
+body,
+#root {
+  height: 100%;
+  font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(
+    135deg,
+    #1e293b,
+    #0f172a
+  ); /* warna gelap elegan */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e5e7eb; /* teks terang */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth transitions globally */
+body {
+  transition: background 0.3s ease, color 0.3s ease;
+  line-height: 1.5;
+}
