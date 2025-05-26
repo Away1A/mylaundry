@@ -19,7 +19,8 @@ const LoginForm = () => {
     try {
       const data = await login(email, password);
       localStorage.setItem("token", data.token);
-      navigate("/profile");
+      localStorage.setItem("role", data.role);
+      navigate("/admin");
     } catch {
       setError("Invalid email or password");
     } finally {

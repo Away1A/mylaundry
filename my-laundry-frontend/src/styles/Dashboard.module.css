@@ -1,0 +1,113 @@
+/* General Layout */
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f8fafc;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Sidebar handled separately */
+
+/* Main content wrapper */
+.content {
+  flex: 1;
+  padding: 2rem;
+  margin-left: 220px; /* Jika Sidebar fixed dengan width 220px */
+}
+
+/* Header */
+.dashboardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2f2e2e;
+  color: white;
+  padding: 1.5rem 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.profileBox {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #334155;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+}
+
+.username {
+  font-weight: bold;
+  color: white;
+}
+
+.roleBadge {
+  background: #0ea5e9;
+  color: white;
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+}
+
+/* Main dashboard content */
+.dashboardMain {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+/* Section Cards */
+.card {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.card h2 {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  color: #1e293b;
+}
+
+/* Table wrapper */
+.tableWrapper {
+  margin-top: 1rem;
+  overflow-x: auto;
+}
+
+/* Error */
+.errorText {
+  color: #ef4444;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* Responsive Layout */
+@media (min-width: 768px) {
+  .dashboardMain {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboardHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .profileBox {
+    align-self: flex-end;
+  }
+}

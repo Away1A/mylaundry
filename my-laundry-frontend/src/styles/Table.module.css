@@ -1,0 +1,26 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+.table th,
+.table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #f1f5f9;
+  color: #000; /* teks warna hitam */
+}
+
+.table th {
+  background-color: #f8fafc;
+  font-weight: 600;
+  color: #000; /* teks header juga hitam */
+}
+
+.table tr:hover {
+  background-color: #f1f5f9;
+}

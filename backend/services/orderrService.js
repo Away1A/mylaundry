@@ -6,7 +6,7 @@ export const getAllOrders = async () => {
     include: {
       model: Customer,
       as: 'customer',
-      attributes: ['id', 'name', 'phone', 'email'],
+      attributes: ['id', 'name', 'phone'],
     },
   });
 };
